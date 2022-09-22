@@ -2,9 +2,10 @@ const mongoose = require("mongoose");
 
 
 const connectDatabse = () => {
-    mongoose.connect(process.env.DB_URL,{
+    mongoose.connect("mongodb+srv://sahil:pgroomsvone@cluster0.hwpouvw.mongodb.net/?retryWrites=true&w=majority",{
         useNewUrlParser : true,
         useUnifiedTopology : true,
+        
     })
     .then(console.log("Database connected"))
     .catch( error => {
