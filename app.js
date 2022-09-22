@@ -4,6 +4,8 @@ const app = express();
 var morgan = require('morgan');
 const cookieParser = require("cookie-parser");
 const fileupload = require("express-fileupload");
+const errorMiddlewares = require("./middlewares/error");
+
 
 app.use(cookieParser());
 app.use(fileupload({
@@ -13,9 +15,26 @@ app.use(fileupload({
 
 app.set("view engine" , "ejs");
 
+
 app.use(express.json());
 app.use(express.urlencoded({extended : true}));
 app.use(morgan("tiny"));
+
+//importing routes
+const userRoute = require("./routes/userRoutes");
+
+
+//assinging route with strings
+app.use("/api/v1",userRoute);
+
+
+
+
+
+app.use(errorMiddlewares);
+
+
+
 
 
 app.get("/home",(req,res)=> {

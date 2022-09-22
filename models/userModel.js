@@ -5,7 +5,12 @@ const userModel = new mongoose.Schema({
     name : {
         type : String ,
         required : [true , "Please enter the user name"],
-        minLength  : [15 , "Name should not  exceed 15 characters"],
+        maxLength  : [15 , "Name should not  exceed 15 characters"],
+    },
+    firebaseUID : {
+        type : String,
+        required : [true , "Please provide the firebase UID"],
+        unique : true
     },
     email : {
         type : String ,
@@ -27,14 +32,25 @@ const userModel = new mongoose.Schema({
         public_url : {
             type : String,
             required :  [true , "Please provide photo public url"]
-        }
+        },
+        secure_url : {
+            type : String,
+            required :  [true , "Please provide photo public url"]
+        },
     },
     parentPhone : {
         type : Number,
         required : [true ,"Please provide your parent phone number"],
         minLength : [10 , "Mobile number should have atleast 10 numbers"]
     },
-
+    createdAt : {
+        type : Date,
+        default : Date.now,
+    },
+    role: {
+        type :String,
+        default : 'user'
+    },
 });
 
 module.exports = mongoose.model("USER",userModel); 
